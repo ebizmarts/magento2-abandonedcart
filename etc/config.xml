@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../Magento/Store/etc/config.xsd">
+    <default>
+        <abandonedcart>
+            <general>
+                <max>2</max>
+                <subject1>Having trouble?</subject1>
+                <subject2>Limited stock</subject2>
+                <subject3>Coupon Discount!</subject3>
+                <unit>1</unit>
+                <days1>1</days1>
+                <days2>1</days2>
+                <days3>2</days3>
+                <sendon>3</sendon>
+                <mandrill-tag>AbandonedCart</mandrill-tag>
+                <autologin>0</autologin>
+                <page>checkout/cart</page>
+            </general>
+            <emailcatcher>
+                <popup_cancel>1</popup_cancel>
+                <popup_subscription>1</popup_subscription>
+                <popup_heading>Welcome to our store!</popup_heading>
+                <popup_text>Please enter your email address to get the most of our store and improve your shopping experience.</popup_text>
+                <popup_width>410</popup_width>
+                <popup_cookie_time>1</popup_cookie_time>
+                <popup_insist>1</popup_insist>
+                <popup_coupon_mandrill_tag>popup_coupon</popup_coupon_mandrill_tag>
+                <popup_coupon_mail_subject>You won a coupon!</popup_coupon_mail_subject>
+            </emailcatcher>
+        </abandonedcart>
+    </default>
+</config>

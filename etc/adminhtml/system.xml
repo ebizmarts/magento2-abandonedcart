@@ -1,0 +1,253 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../Magento/Config/etc/system_file.xsd">
+    <system>
+        <tab id="magemonkey" translate="label" sortOrder="450">
+            <label>MageMonkey</label>
+        </tab>
+        <section id="abandonedcart" translate="label" type="text" sortOrder="310" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Abandoned Cart</label>
+            <tab>magemonkey</tab>
+            <resource>Ebizmarts_AbandonedCart::config_abandonedcart</resource>
+            <group id="general" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Abandoned Cart General Configuration</label>
+                <field id="active" translate="label" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="log" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Log Activated</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="*/*/active">1</field>
+                    </depends>
+                </field>
+                <field id="identity" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Sender</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                    <depends>
+                        <field id="*/*/active">1</field>
+                    </depends>
+                </field>
+                <field id="mandrilltag" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Mandrill Tag</label>
+                    <depends>
+                        <field id="*/*/active">1</field>
+                    </depends>
+                </field>
+                <field id="max" translate="label" type="select" sortOrder="60" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Max number of emails to send</label>
+                    <source_model>Ebizmarts\AbandonedCart\Model\System\Config\Maxemails</source_model>
+                    <depends>
+                        <field id="*/*/active">1</field>
+                    </depends>
+                </field>
+                <field id="subject1" translate="label" type="text" sortOrder="70" showInDefault="1" showInStore="1" showInWebsite="1">
+                    <label>First Email Subject</label>
+                    <depends>
+                        <field id="*/*/active">1</field>
+                        <field id="*/*/max" separator=",">0,1,2,3,4</field>
+                    </depends>
+                </field>
+                <field id="template1" translate="label" type="select" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>First Email Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <depends>
+                        <field id="*/*/active">1</field>
+                        <field id="*/*/max" separator=",">0,1,2,3,4</field>
+                    </depends>
+                </field>
+                <field id="days1" translate="label" type="text" sortOrder="85" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Send Mail After</label>
+                    <depends>
+                        <field id="*/*/active">1</field>
+                        <field id="*/*/max" separator=",">0,1,2,3,4</field>
+                    </depends>
+                </field>
+                <field id="unit" translate="label" type="select" sortOrder="88" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Unit</label>
+                    <source_model>Ebizmarts\AbandonedCart\Model\System\Config\Unit</source_model>
+                    <depends>
+                        <field id="*/*/active">1</field>
+                        <field id="*/*/max" separator=",">0,1,2,3,4</field>
+                    </depends>
+                </field>
+                <field id="subject2" translate="label" type="text" sortOrder="90" showInDefault="1" showInStore="1" showInWebsite="1">
+                    <label>Second Email Subject</label>
+                    <depends>
+                        <field id="*/*/active">1</field>
+                        <field id="*/*/max" separator=",">1,2,3,4</field>
+                    </depends>
+                </field>
+                <field id="template2" translate="label" type="select" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Second Email Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <depends>
+                        <field id="*/*/active">1</field>
+                        <field id="*/*/max" separator=",">1,2,3,4</field>
+                    </depends>
+                </field>
+                <field id="days2" translate="label" type="text" sortOrder="115" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Send Mail After</label>
+                    <depends>
+                        <field id="*/*/active">1</field>
+                        <field id="*/*/max" separator=",">1,2,3,4</field>
+                    </depends>
+                </field>
+                <field id="subject3" translate="label" type="text" sortOrder="110" showInDefault="1" showInStore="1" showInWebsite="1">
+                    <label>Third Email Subject</label>
+                    <depends>
+                        <field id="*/*/active">1</field>
+                        <field id="*/*/max" separator=",">2,3,4</field>
+                    </depends>
+                </field>
+                <field id="template3" translate="label" type="select" sortOrder="120" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Third Email Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <depends>
+                        <field id="*/*/active">1</field>
+                        <field id="*/*/max" separator=",">2,3,4</field>
+                    </depends>
+                </field>
+                <field id="days3" translate="label" type="text" sortOrder="125" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Send Mail After</label>
+                    <depends>
+                        <field id="*/*/active">1</field>
+                        <field id="*/*/max" separator=",">2,3,4</field>
+                    </depends>
+                </field>
+                <field id="subject4" translate="label" type="text" sortOrder="130" showInDefault="1" showInStore="1" showInWebsite="1">
+                    <label>Fourth Email Subject</label>
+                    <depends>
+                        <field id="*/*/active">1</field>
+                        <field id="*/*/max" separator=",">3,4</field>
+                    </depends>
+                </field>
+                <field id="template4" translate="label" type="select" sortOrder="140" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Fourth Email Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <depends>
+                        <field id="*/*/active">1</field>
+                        <field id="*/*/max" separator=",">3,4</field>
+                    </depends>
+                </field>
+                <field id="days4" translate="label" type="text" sortOrder="150" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Send Mail After</label>
+                    <depends>
+                        <field id="*/*/active">1</field>
+                        <field id="*/*/max" separator=",">3,4</field>
+                    </depends>
+                </field>
+                <field id="subject5" translate="label" type="text" sortOrder="160" showInDefault="1" showInStore="1" showInWebsite="1">
+                    <label>Fifth Email Subject</label>
+                    <depends>
+                        <field id="*/*/active">1</field>
+                        <field id="*/*/max" separator=",">4</field>
+                    </depends>
+                </field>
+                <field id="template5" translate="label" type="select" sortOrder="170" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Fifth Email Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <depends>
+                        <field id="*/*/active">1</field>
+                        <field id="*/*/max" separator=",">3,4</field>
+                    </depends>
+                </field>
+                <field id="days5" translate="label" type="text" sortOrder="180" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Send Mail After</label>
+                    <depends>
+                        <field id="*/*/active">1</field>
+                        <field id="*/*/max" separator=",">3,4</field>
+                    </depends>
+                </field>
+                <field id="customer" translate="label" type="multiselect" sortOrder="190" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Customer Group</label>
+                    <source_model>Ebizmarts\AbandonedCart\Model\System\Config\Customergroup</source_model>
+                    <depends>
+                        <field id="*/*/active">1</field>
+                    </depends>
+                </field>
+                <field id="autologin" translate="label" type="select" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Auto login link</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="*/*/active">1</field>
+                    </depends>
+                </field>
+            </group>
+            <group id="coupon" translate="label" type="text" sortOrder="400" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Coupon</label>
+                <field id="create" translate="label" type="select" sortOrder="410" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Create Coupon?</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="sendon" translate="label" type="text" sortOrder="420" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>On email number?</label>
+                    <depends>
+                        <field id="*/*/create">1</field>
+                    </depends>
+                </field>
+                <field id="automatic" translate="label" type="select" sortOrder="430" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Option</label>
+                    <source_model>Ebizmarts\AbandonedCart\Model\System\Config\Automatic</source_model>
+                    <depends>
+                        <field id="*/*/create">1</field>
+                    </depends>
+                </field>
+                <field id="couponcode" translate="label" type="text" sortOrder="440" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Coupon Code</label>
+                    <depends>
+                        <field id="*/*/create">1</field>
+                        <field id="*/*/automatic">1</field>
+                    </depends>
+                </field>
+                <field id="expire" translate="label" type="text" sortOrder="450" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Expire on</label>
+                    <depends>
+                        <field id="*/*/create">1</field>
+                        <field id="*/*/automatic">2</field>
+                    </depends>
+                </field>
+                <field id="length" translate="label" type="text" sortOrder="460" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Coupon Length</label>
+                    <depends>
+                        <field id="*/*/create">1</field>
+                        <field id="*/*/automatic">2</field>
+                    </depends>
+                </field>
+                <field id="discounttype" translate="label" type="select" sortOrder="470" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Discount Type</label>
+                    <source_model>Ebizmarts\AbandonedCart\Model\System\Config\Discounttype</source_model>
+                    <depends>
+                        <field id="*/*/create">1</field>
+                        <field id="*/*/automatic">2</field>
+                    </depends>
+                </field>
+                <field id="discount" translate="label" type="text" sortOrder="480" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Discount Amount</label>
+                    <depends>
+                        <field id="*/*/create">1</field>
+                        <field id="*/*/automatic">2</field>
+                    </depends>
+                </field>
+                <field id="couponlabel" translate="label" type="text" sortOrder="490" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Label for Coupon</label>
+                    <depends>
+                        <field id="*/*/create">1</field>
+                        <field id="*/*/automatic">2</field>
+                    </depends>
+                </field>
+            </group>
+            <group id="A_Btesting" translate="label" type="text" sortOrder="600" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>A/B Testing</label>
+                <field id="active" translate="label" type="select" sortOrder="610" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Ebizmarts\AbandonedCart\Model\System\Config\Yesnovariation</source_model>
+                </field>
+                <field id="maandrillsuffix" translate="label" type="text" sortOrder="620" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Test suffix</label>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

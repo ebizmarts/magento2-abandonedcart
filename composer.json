@@ -1,0 +1,34 @@
+{
+    "name": "ebizmarts/magento2-abandonedcart",
+    "description": "Send abandoned cart emails",
+    "type": "magento2-module",
+    "version": "3.0.0",
+    "authors": [
+        {
+            "name": "Ebizmarts Corp",
+            "email": "info@ebizmarts.com",
+            "homepage": "http://ebizmarts.com"
+        }
+    ],
+    "license": [
+        "OSL-3.0",
+        "AFL-3.0"
+    ],
+    "support": {
+        "email": "info@ebizmarts.com",
+        "wiki": "http://wiki.ebizmarts.com",
+        "forum": "http://ebizmarts.com/forums/view/1"
+    },
+    "require" : {
+        "mandrill/mandrill": "1.0.*",
+        "ebizmarts/magento2-mandrill": "3.*.*"
+    },
+    "extra": {
+        "map": [
+            [
+                "*",
+                "Ebizmarts/Mandrill"
+            ]
+        ]
+    }
+}

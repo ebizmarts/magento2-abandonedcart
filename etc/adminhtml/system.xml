@@ -246,7 +246,82 @@
                 </field>
                 <field id="maandrillsuffix" translate="label" type="text" sortOrder="620" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Test suffix</label>
+                    <depends>
+                        <field id="*/*/active" separator=",">1,2,3,4,5,-1,-2,-3,-4,-5</field>
+                    </depends>
                 </field>
+                <field id="subject1" translate="label" type="text" sortOrder="630" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>First Email Subject</label>
+                    <depends>
+                        <field id="*/*/active" separator=",">1,2,3,4,5,-0,-1,-2,-3,-4,-5</field>
+                    </depends>
+                </field>
+                <field id="template1" translate="label" type="select" sortOrder="640" showInWebsite="1" showInStore="1" showInDefault="1">
+                    <label>First Email Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <depends>
+                        <field id="*/*/active" separator=",">1,2,3,4,5,-1,-2,-3,-4,-5</field>
+                    </depends>
+                </field>
+                <field id="subject2" translate="label" type="text" sortOrder="650" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Second Email Subject</label>
+                    <depends>
+                        <field id="*/*/active" separator=",">2,3,4,5,-2,-3,-4,-5</field>
+                    </depends>
+                </field>
+                <field id="template2" translate="label" type="select" sortOrder="660" showInWebsite="1" showInStore="1" showInDefault="1">
+                    <label>Second Email Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <depends>
+                        <field id="*/*/active" separator=",">2,3,4,5,-2,-3,-4,-5</field>
+                    </depends>
+                </field>
+                <field id="subject3" translate="label" type="text" sortOrder="670" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Third Email Subject</label>
+                    <depends>
+                        <field id="*/*/active" separator=",">3,4,5,-3,-4,-5</field>
+                    </depends>
+                </field>
+                <field id="template3" translate="label" type="select" sortOrder="680" showInWebsite="1" showInStore="1" showInDefault="1">
+                    <label>Third Email Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <depends>
+                        <field id="*/*/active" separator=",">3,4,5,-3,-4,-5</field>
+                    </depends>
+                </field>
+                <field id="subject4" translate="label" type="text" sortOrder="690" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Fourth Email Subject</label>
+                    <depends>
+                        <field id="*/*/active" separator=",">4,5,-4,-5</field>
+                    </depends>
+                </field>
+                <field id="template4" translate="label" type="select" sortOrder="700" showInWebsite="1" showInStore="1" showInDefault="1">
+                    <label>Fourth Email Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <depends>
+                        <field id="*/*/active" separator=",">4,5,-4,-5</field>
+                    </depends>
+                </field>
+                <field id="subject5" translate="label" type="text" sortOrder="710" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Fifth Email Subject</label>
+                    <depends>
+                        <field id="*/*/active" separator=",">5,-5</field>
+                    </depends>
+                </field>
+                <field id="template5" translate="label" type="select" sortOrder="720" showInWebsite="1" showInStore="1" showInDefault="1">
+                    <label>Fifth Email Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <depends>
+                        <field id="*/*/active" separator=",">5,-5</field>
+                    </depends>
+                </field>
+                <field id="sendon" translate="label" type="text" sortOrder="730" showInWebsite="1" showInDefault="1" showInStore="1">
+                    <label>If coupon enabled send on email number?</label>
+                    <depends>
+                        <field id="*/*/active" separator=",">-1,-2,-3,-4,-5</field>
+                    </depends>
+                </field>
+
             </group>
         </section>
     </system>

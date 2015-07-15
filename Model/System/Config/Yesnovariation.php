@@ -28,14 +28,15 @@ class Yesnovariation
 //        $code = Mage::getSingleton('adminhtml/config_data')->getStore();
 //        $storeId = Mage::getModel('core/store')->load($code)->getId();
         $storeId = null;
-        if ($this->_helper->getConfig(\Ebizmarts\AbandonedCart\Model\Config::SEND_COUPON, $storeId)) {
-            $active = -$this->_helper->getConfig(\Ebizmarts\AbandonedCart\Model\Config::MAXTIMES, $storeId);
+        $hasCoupon = $this->_helper->getConfig(\Ebizmarts\AbandonedCart\Model\Config::SEND_COUPON);
+        if ($hasCoupon) {
+            $active = -$this->_helper->getConfig(\Ebizmarts\AbandonedCart\Model\Config::MAXTIMES);
         } else {
-            $active = $this->_helper->getConfig(\Ebizmarts\AbandonedCart\Model\Config::MAXTIMES, $storeId);
+            $active = $this->_helper->getConfig(\Ebizmarts\AbandonedCart\Model\Config::MAXTIMES);
         }
         $options = array(
             array('value' => 0, 'label' => __('No')),
-            array('value' => $active, 'label' => __('Yes'))
+            array('value' => ($active+($hasCoupon ? -1 :1)), 'label' => __('Yes'))
         );
         return $options;
     }

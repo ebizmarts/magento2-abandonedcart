@@ -5,4 +5,9 @@
     <template id="abandonedcart_general_template3" label="Third Abandoned Cart" file="abandoned_cart_mail_3.html" type="html" module="Ebizmarts_AbandonedCart"/>
     <template id="abandonedcart_general_template4" label="Fourth Abandoned Cart" file="abandoned_cart_mail_4.html" type="html" module="Ebizmarts_AbandonedCart"/>
     <template id="abandonedcart_general_template5" label="Fifth Abandoned Cart" file="abandoned_cart_mail_5.html" type="html" module="Ebizmarts_AbandonedCart"/>
+    <template id="abandonedcart_A_Btesting_template1" label="First A/B Testing Abandoned Cart" file="generic_abandoned_cart_mail_1.html" type="html" module="Ebizmarts_AbandonedCart"/>
+    <template id="abandonedcart_A_Btesting_template2" label="Second A/B Testing Abandoned Cart" file="generic_abandoned_cart_mail_2.html" type="html" module="Ebizmarts_AbandonedCart"/>
+    <template id="abandonedcart_A_Btesting_template3" label="Third A/B Testing Abandoned Cart" file="generic_abandoned_cart_mail_3.html" type="html" module="Ebizmarts_AbandonedCart"/>
+    <template id="abandonedcart_A_Btesting_template4" label="Fourth A/B Testing Abandoned Cart" file="generic_abandoned_cart_mail_4.html" type="html" module="Ebizmarts_AbandonedCart"/>
+    <template id="abandonedcart_A_Btesting_template5" label="Fifth A/B Testing Abandoned Cart" file="generic_abandoned_cart_mail_5.html" type="html" module="Ebizmarts_AbandonedCart"/>
 </config>

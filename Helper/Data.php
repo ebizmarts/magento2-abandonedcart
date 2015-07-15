@@ -10,8 +10,8 @@ namespace Ebizmarts\AbandonedCart\Helper;
 
 class Data extends \Magento\Framework\App\Helper\AbstractHelper
 {
-    public function getConfig($label,$store=null)
+    public function getConfig($label)
     {
-        return $this->scopeConfig->getValue($label,$store);
+        return $this->scopeConfig->getValue($label);
     }
 }

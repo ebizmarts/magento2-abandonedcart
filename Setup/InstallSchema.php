@@ -16,9 +16,9 @@ class InstallSchema implements InstallSchemaInterface
 {
     public function install(SchemaSetupInterface $setup, ModuleContextInterface $context)
     {
-//        $installer = $setup;
-//
-//        $installer->startSetup();
+        $installer = $setup;
+
+        $installer->startSetup();
 //        $table  = $installer->getConnection()
 //            ->newTable($installer->getTable('mandrill_templates'))
 //            ->addColumn(
@@ -44,6 +44,6 @@ class InstallSchema implements InstallSchemaInterface
 //            )
 //            ->setComment('Magento/Mandrill templates relation');
 //        $installer->getConnection()->createTable($table);
-
+        $installer->endSetup();
     }
 }

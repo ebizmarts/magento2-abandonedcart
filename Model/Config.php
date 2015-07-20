@@ -14,6 +14,7 @@ class Config
     const MAXTIMES_NUM = 5;
     const IN_DAYS = 0;
     const IN_HOURS = 1;
+    const ACTIVE = "abandonedcart/general/active";
     const SEND_COUPON = "abandonedcart/coupon/create";
     const MAXTIMES = "abandonedcart/general/max";
 

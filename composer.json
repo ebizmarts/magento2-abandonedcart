@@ -2,7 +2,7 @@
     "name": "ebizmarts/magento2-abandonedcart",
     "description": "Send abandoned cart emails",
     "type": "magento2-module",
-    "version": "3.0.1-beta",
+    "version": "3.0.2-beta",
     "authors": [
         {
             "name": "Ebizmarts Corp",

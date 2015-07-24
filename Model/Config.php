@@ -18,6 +18,10 @@ class Config
     const SEND_COUPON               = "abandonedcart/coupon/create";
     const MAXTIMES                  = "abandonedcart/general/max";
 
+    const MANDRILL_TAG              = 'abandonedcart/general/mandrill-tag';
+    const CUSTOMER_GROUPS           = "abandonedcart/general/customer";
+    const UNIT                      = "abandonedcart/general/unit";
+    const SENDER                    = "abandonedcart/general/identity";
     // AB TESTING
     const AB_TESTING_ACTIVE         = 'abandonedcart/A_Btesting/active';
     const AB_TESTING_MANDRILL_SUFFIX= 'abandonedcart/A_Btesting/mandrill_suffix';
@@ -60,4 +64,19 @@ class Config
     const POPUP_COUPON_DISCOUNT     = 'abandonedcart/emailcatcher/popup_discount';
     const POPUP_COUPON_LABEL        = 'abandonedcart/emailcatcher/popup_couponlabel';
 
+    const DAYS_1                    = "abandonedcart/general/days1";
+    const DAYS_2                    = "abandonedcart/general/days2";
+    const DAYS_3                    = "abandonedcart/general/days3";
+    const DAYS_4                    = "abandonedcart/general/days4";
+    const DAYS_5                    = "abandonedcart/general/days5";
+
+    const COUPON_DAYS               = "abandonedcart/coupon/sendon";
+    const FIRST_DATE                = "abandonedcart/general/firstdate";
+    const COUPON_AMOUNT             = "abandonedcart/coupon/discount";
+    const COUPON_AUTOMATIC          = "abandonedcart/coupon/automatic";
+    const COUPON_CODE               = "abandonedcart/coupon/couponcode";
+    const COUPON_EXPIRE             = "abandonedcart/coupon/expire";
+    const COUPON_TYPE               = "abandonedcart/coupon/discounttype";
+    const COUPON_LENGTH             = "abandonedcart/coupon/length";
+    const COUPON_LABEL              = "abandonedcart/coupon/couponlabel";
 }

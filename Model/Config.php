@@ -17,6 +17,8 @@ class Config
     const ACTIVE                    = "abandonedcart/general/active";
     const SEND_COUPON               = "abandonedcart/coupon/create";
     const MAXTIMES                  = "abandonedcart/general/max";
+    const PAGE                      = 'abandonedcart/general/page';
+    const AUTOLOGIN                 = "abandonedcart/general/autologin";
 
     const MANDRILL_TAG              = 'abandonedcart/general/mandrill-tag';
     const CUSTOMER_GROUPS           = "abandonedcart/general/customer";

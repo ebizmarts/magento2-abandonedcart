@@ -8,14 +8,15 @@
  */
 namespace Ebizmarts\AbandonedCart\Block\Adminhtml\System\Config;
 
-use Magento\Framework\Data\Form\Element\Date;
+//use Magento\Framework\Data\Form\Element\Date;
 
 class Date extends \Magento\Config\Block\System\Config\Form\Field
 {
-    public function render(Date $element)
+    public function render(\Magento\Framework\Data\Form\Element\AbstractElement $element)
     {
-        $element->setF
-
+        $element->setDateFormat(\Magento\Framework\Stdlib\DateTime::DATE_INTERNAL_FORMAT);
+        $element->setTimeFormat(null);
+        return parent::render($element);
     }
 
 }

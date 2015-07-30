@@ -22,6 +22,10 @@
                         <field id="*/*/active">1</field>
                     </depends>
                 </field>
+                <field id="firstdate" translate="label" type="date" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>First Date</label>
+                    <frontend_model>Ebizmarts\AbandonedCart\Block\Adminhtml\System\Config\Date</frontend_model>
+                </field>
                 <field id="identity" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
                     <label>Sender</label>
                     <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>

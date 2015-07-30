@@ -29,6 +29,13 @@
                         <field id="*/*/active">1</field>
                     </depends>
                 </field>
+                <field id="page" translate="label" type="select" sortOrder="40" showInDefault="1" showInStore="0" showInWebsite="0">
+                    <label>Redirect Page</label>
+                    <source_model>Ebizmarts\AbandonedCart\Model\System\Config\Cmspage</source_model>
+                    <depends>
+                        <field id="*/*/active">1</field>
+                    </depends>
+                </field>
                 <field id="mandrilltag" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="0" showInStore="0">
                     <label>Mandrill Tag</label>
                     <depends>

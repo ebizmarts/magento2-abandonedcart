@@ -53,7 +53,6 @@ class Loadquote extends \Magento\Framework\App\Action\Action
     {
         $quoteId = (int) $this->getRequest()->getParam('id', false);
         if($quoteId) {
-            $this->_logger->info("tengo el quote");
             $quote = $this->_objectManager->create('\Magento\Quote\Model\Quote')->load($quoteId);
             $storeId = $quote->getStoreId();
             $url = $this->_helper->getConfig(\Ebizmarts\AbandonedCart\Model\Config::PAGE,$storeId);

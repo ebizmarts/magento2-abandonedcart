@@ -38,9 +38,11 @@ class AccountManagement
         if($session)
         {
             $quoteId = $session->getQuoteId();
-            $quote = $this->_objectManager->create('\Magento\Quote\Model\Quote')->load($quoteId);
-            $quote->setCustomerEmail($customerEmail);
-            $quote->save();
+            if($quoteId) {
+                $quote = $this->_objectManager->get('\Magento\Quote\Model\Quote')->load($quoteId);
+                $quote->setCustomerEmail($customerEmail);
+                $quote->save();
+            }
         }
         return $ret;
     }

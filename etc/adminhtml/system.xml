@@ -255,7 +255,11 @@
                     <label>Enabled</label>
                     <source_model>Ebizmarts\AbandonedCart\Model\System\Config\Yesnovariation</source_model>
                 </field>
-                <field id="maandrillsuffix" translate="label" type="text" sortOrder="620" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="abcounter" translate="label" type="select" sortOrder="615" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Next Email is</label>
+                    <source_model>Ebizmarts\AbandonedCart\Model\System\Config\Abcounter</source_model>
+                </field>
+                <field id="mandrillsuffix" translate="label" type="text" sortOrder="620" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Test suffix</label>
                     <depends>
                         <field id="*/*/active" separator=",">1,2,3,4,5,-1,-2,-3,-4,-5</field>

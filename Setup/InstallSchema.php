@@ -41,17 +41,6 @@ class InstallSchema implements InstallSchemaInterface
                 'comment' => 'Abandoned Cart Flag'
             ]
         );
-//        $installer->getConnection()->addColumn(
-//            $installer->getTable('quote'),
-//            'ebizmarts_abandonedcart_flag',
-//            [
-//                'type' => \Magento\Framework\DB\Ddl\Table::TYPE_BOOLEAN,
-//                'unsigned' => true,
-//                'nullable' => false,
-//                'default' => '0',
-//                'comment' => 'Abandoned Cart Flag'
-//            ]
-//        );
         $installer->getConnection()->addColumn(
             $installer->getTable('quote'),
             'ebizmarts_abandonedcart_token',

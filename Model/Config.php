@@ -26,6 +26,7 @@ class Config
     const SENDER                    = "abandonedcart/general/identity";
     // AB TESTING
     const AB_TESTING_ACTIVE         = 'abandonedcart/A_Btesting/active';
+    const ABCOUNTER                 = "abandonedcart/A_Btesting/abcounter";
     const AB_TESTING_MANDRILL_SUFFIX= 'abandonedcart/A_Btesting/mandrill_suffix';
     const AB_TESTING_FIRST_EMAIL    = 'abandonedcart/A_Btesting/template1';
     const AB_TESTING_SECOND_EMAIL   = 'abandonedcart/A_Btesting/template2';
@@ -40,6 +41,11 @@ class Config
     const AB_TESTING_FIFTH_SUBJECT  = "abandonedcart/A_Btesting/subject5";
     const AB_TESTING_COUPON_SENDON  = "abandonedcart/A_Btesting/A_Btesting_sendon";
 
+    const FIRST_EMAIL_TEMPLATE_XML_PATH     = 'abandonedcart/general/template1';
+    const SECOND_EMAIL_TEMPLATE_XML_PATH    = 'abandonedcart/general/template2';
+    const THIRD_EMAIL_TEMPLATE_XML_PATH     = 'abandonedcart/general/template3';
+    const FOURTH_EMAIL_TEMPLATE_XML_PATH    = 'abandonedcart/general/template4';
+    const FIFTH_EMAIL_TEMPLATE_XML_PATH     = 'abandonedcart/general/template5';
     const FIRST_SUBJECT             = "abandonedcart/general/subject1";
     const SECOND_SUBJECT            = "abandonedcart/general/subject2";
     const THIRD_SUBJECT             = "abandonedcart/general/subject3";

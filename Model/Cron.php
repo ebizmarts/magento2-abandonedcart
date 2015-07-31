@@ -38,25 +38,47 @@ class cron
      */
     protected $_objectManager;
     /**
+     * @var \Magento\CatalogInventory\Api\StockRegistryInterface
+     */
+    protected $_stockRegistry;
+    /**
      * @var \Magento\Framework\Mail\Template\TransportBuilder
      */
     protected $_transportBuilder;
+    /**
+     * @var \Psr\Log\LoggerInterface
+     */
+    protected $_logger;
 
+    /**
+     * @param \Magento\Store\Model\StoreManager $storeManager
+     * @param \Ebizmarts\AbandonedCart\Helper\Data $helper
+     * @param \Magento\Framework\ObjectManagerInterface $objectManager
+     * @param \Magento\Framework\Mail\Template\TransportBuilder $transportBuilder
+     * @param \Magento\CatalogInventory\Api\StockRegistryInterface $stockRegistry
+     * @param \Psr\Log\LoggerInterface $logger
+     */
     public function __construct(
         \Magento\Store\Model\StoreManager $storeManager,
         \Ebizmarts\AbandonedCart\Helper\Data $helper,
         \Magento\Framework\ObjectManagerInterface $objectManager,
-        \Magento\Framework\Mail\Template\TransportBuilder $transportBuilder
+        \Magento\Framework\Mail\Template\TransportBuilder $transportBuilder,
+        \Magento\CatalogInventory\Api\StockRegistryInterface $stockRegistry,
+        \Psr\Log\LoggerInterface $logger
     )
     {
         $this->_storeManager    = $storeManager;
         $this->_helper          = $helper;
         $this->_objectManager   = $objectManager;
         $this->_transportBuilder= $transportBuilder;
+        $this->_stockRegistry   = $stockRegistry;
+        $this->_logger          = $logger;
     }
 
     public function abandoned()
     {
+        error_log("entro en el cron");
+        $this->_logger->info("entro en el cron");
         foreach($this->_storeManager->getStores() as $storeId => $val)
         {
             $this->_storeManager->setCurrentStore($storeId);
@@ -64,16 +86,6 @@ class cron
                 $this->_proccess($storeId);
             }
         }
-
-//        $allStores = Mage::app()->getStores();
-//        foreach ($allStores as $storeid => $val) {
-//            if (Mage::getStoreConfig(Ebizmarts_AbandonedCart_Model_Config::ACTIVE, $storeid)) {
-//                $this->_proccess($storeid);
-//            }
-//            if (Mage::getStoreConfig(Ebizmarts_AbandonedCart_Model_Config::ENABLE_POPUP, $storeid) && Mage::getStoreConfig(Ebizmarts_AbandonedCart_Model_Config::POPUP_CREATE_COUPON, $storeid)) {
-//                $this->_sendPopupCoupon($storeid);
-//            }
-//        }
     }
 
     public function cleanAbandonedCartExpiredCoupons()
@@ -91,23 +103,6 @@ class cron
      */
     protected function _proccess($storeId)
     {
-        //Mage::app()->setCurrentStore($storeId);
-//        Mage::unregister('_singleton/core/design_package');
-//        Mage::app()->setCurrentStore(Mage_Core_Model_App::ADMIN_STORE_ID);
-//        Mage::getSingleton('core/design_package')->setStore($storeId);
-
-        $abTesting = false;
-        $item = Mage::getModel('ebizmarts_abandonedcart/abtesting')->getCollection()
-            ->addFieldToFilter('store_id', array('eq' => $storeId))
-            ->getFirstItem();
-        if ($item) {
-            $status = $item->getCurrentStatus();
-            $suffix = '';
-            if ($this->_helper->getConfig(\Ebizmarts\AbandonedCart\Model\Config::AB_TESTING_ACTIVE, $storeId) && $status == 1) {
-                $abTesting = true;
-                $suffix = $this->_helper->getConfig(\Ebizmarts\AbandonedCart\Model\Config::AB_TESTING_MANDRILL_SUFFIX, $storeId);
-            }
-        }
 
         $this->days = array(
             0 => $this->_helper->getConfig(\Ebizmarts\AbandonedCart\Model\Config::DAYS_1, $storeId),
@@ -120,16 +115,15 @@ class cron
         $this->sendcoupon       = $this->_helper->getConfig(\Ebizmarts\AbandonedCart\Model\Config::SEND_COUPON, $storeId);
         $this->firstdate        = $this->_helper->getConfig(\Ebizmarts\AbandonedCart\Model\Config::FIRST_DATE, $storeId);
         $this->unit             = $this->_helper->getConfig(\Ebizmarts\AbandonedCart\Model\Config::UNIT, $storeId);
-        $this->customergroups   = explode(",", $this->_helper->getConfig(\Ebizmarts\AbandonedCart\Model\Config::CUSTOMER_GROUPS, $storeId));
+//        $this->customergroups   = explode(",", $this->_helper->getConfig(\Ebizmarts\AbandonedCart\Model\Config::CUSTOMER_GROUPS, $storeId));
         $this->mandrillTag      = $this->_helper->getConfig(\Ebizmarts\AbandonedCart\Model\Config::MANDRILL_TAG, $storeId) . "_$storeId";
-
-        if ($abTesting) {
-            $this->mandrillTag .= '_' . $suffix;
-            $this->sendcoupondays = $this->_helper->getConfig(\Ebizmarts\AbandonedCart\Model\Config::AB_TESTING_COUPON_SENDON, $storeId);
-        } else {
-            $this->sendcoupondays = $this->_helper->getConfig(\Ebizmarts\AbandonedCart\Model\Config::COUPON_DAYS, $storeId);
+        if($this->_helper->getConfig(\Ebizmarts\AbandonedCart\Model\Config::CUSTOMER_GROUPS, $storeId))
+        {
+            $this->customergroups   = explode(",", $this->_helper->getConfig(\Ebizmarts\AbandonedCart\Model\Config::CUSTOMER_GROUPS, $storeId));
         }
-
+        else {
+            $this->customergroups   = array();;
+        }
         //coupon vars
         $this->couponamount = $this->_helper->getConfig(\Ebizmarts\AbandonedCart\Model\Config::COUPON_AMOUNT, $storeId);
         $this->couponexpiredays = $this->_helper->getConfig(\Ebizmarts\AbandonedCart\Model\Config::COUPON_EXPIRE, $storeId);
@@ -142,10 +136,10 @@ class cron
             if (!$this->days[$run]) {
                 return;
             }
-            $this->_processRun($run, $storeId, $abTesting, $suffix);
+            $this->_processRun($run, $storeId);
         }
     }
-    protected function _processRun($run, $storeId, $abTesting, $suffix)
+    protected function _processRun($run, $storeId)
     {
         // subtract days from latest run to get difference from the actual abandon date of the cart
         $diff = $this->days[$run];
@@ -160,11 +154,10 @@ class cron
         if ($run == 0 && $this->unit == \Ebizmarts\AbandonedCart\Model\Config::IN_HOURS) {
             $expr = sprintf('DATE_SUB(now(), %s)', $this->_getIntervalUnitSql($diff, 'HOUR'));
         }
-        $from = new Zend_Db_Expr($expr);
+        $from = new \Zend_Db_Expr($expr);
 
         // get collection of abandoned carts with cart_counter == $run
         $collection = $this->_objectManager->create('\Magento\Reports\Model\Resource\Quote\Collection');
-        //$collection = Mage::getResourceModel('reports/quote_collection');
         $collection->addFieldToFilter('items_count', array('neq' => '0'))
             ->addFieldToFilter('main_table.is_active', '1')
             ->addFieldToFilter('main_table.store_id', array('eq' => $storeId))
@@ -179,9 +172,25 @@ class cron
         if (count($this->customergroups)) {
             $collection->addFieldToFilter('main_table.customer_group_id', array('in' => $this->customergroups));
         }
+        $this->_logger->info((string)$collection->getSelect());
+        $abTesting = 0;
+        $suffix = '';
+        if($this->_helper->getConfig(\Ebizmarts\AbandonedCart\Model\Config::AB_TESTING_ACTIVE, $storeId))
+        {
+            $abTesting = $this->_helper->getConfig(\Ebizmarts\AbandonedCart\Model\Config::ABCOUNTER, $storeId);
+        }
 
         // for each cart of the current run
         foreach ($collection as $quote) {
+            if($abTesting)
+            {
+                $suffix = $this->_helper->getConfig(\Ebizmarts\AbandonedCart\Model\Config::AB_TESTING_MANDRILL_SUFFIX, $storeId);
+                $this->mandrillTag .= '_' . $suffix;
+                $this->sendcoupondays = $this->_helper->getConfig(\Ebizmarts\AbandonedCart\Model\Config::AB_TESTING_COUPON_SENDON, $storeId);
+            }
+            else {
+                $this->sendcoupondays = $this->_helper->getConfig(\Ebizmarts\AbandonedCart\Model\Config::COUPON_DAYS, $storeId);
+            }
             $this->_proccessCollection($quote, $storeId);
 
             if (count($quote->getAllVisibleItems()) < 1) {
@@ -198,13 +207,14 @@ class cron
                 ->addFieldToFilter('main_table.customer_email', array('eq' => $quote->getCustomerEmail()))
                 ->addFieldToFilter('main_table.updated_at', array('from' => $quote->getUpdatedAt()));
             if ($collection2->getSize()) {
+                $this->_logger->info("hay ordenes mas nuevas");
                 continue;
             }
             $token = md5(rand(0, 9999999));
             if ($abTesting) {
-                $url = $this->_storeManager->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_LINK) . 'abandonedcart/abandoned/loadquote?id=' . $quote->getEntityId() . '&token=' . $token . '&' . $suffix;
+                $url = $this->_storeManager->getStore($storeId)->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_LINK) . 'abandonedcart/abandoned/loadquote?id=' . $quote->getEntityId() . '&token=' . $token . '&' . $suffix;
             } else {
-                $url = $this->_storeManager->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_LINK) . 'abandonedcart/abandoned/loadquote?id=' . $quote->getEntityId() . '&token=' . $token;
+                $url = $this->_storeManager->getStore($storeId)->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_LINK) . 'abandonedcart/abandoned/loadquote?id=' . $quote->getEntityId() . '&token=' . $token;
             }
 
             $data = array('AbandonedURL' => $url, 'AbandonedDate' => $quote->getUpdatedAt());
@@ -220,17 +230,20 @@ class cron
                 $name = $quote->getCustomerFirstname() . ' ' . $quote->getCustomerLastname();
                 //$quote2 = Mage::getModel('sales/quote')->loadByIdWithoutStore($quote->getId());
                 $quote2 = $this->_objectManager->create('\Magento\Quote\Model\Quote')->loadByIdWithoutStore($quote->getId());
-                $unsubscribeUrl = $url = $this->_storeManager->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_LINK) . 'ebizautoresponder/autoresponder/unsubscribe?list=abandonedcart&email=' . $email . '&store=' . $storeId;
+                $unsubscribeUrl = $url = $this->_storeManager->getStore($storeId)->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_LINK) . 'ebizautoresponder/autoresponder/unsubscribe?list=abandonedcart&email=' . $email . '&store=' . $storeId;
                 $couponcode = '';
 
                 //if hour is set for first run calculates hours since cart was created else calculates days
-                $today = idate('U', strtotime(now()));
+                $today = idate('U', strtotime(date('Y-m-d H:i:s')));
                 $updatedAt = idate('U', strtotime($quote2->getUpdatedAt()));
                 $updatedAtDiff = ($today - $updatedAt) / 60 / 60 / 24;
                 if ($this->unit == \Ebizmarts\AbandonedCart\Model\Config::IN_HOURS && $run == 0) {
                     $updatedAtDiff = ($today - $updatedAt) / 60 / 60;
                 }
-
+                $this->_logger->info("updatedAt $updatedAt");
+                $this->_logger->info("today $today");
+                $this->_logger->info("updatedAtDiff $updatedAtDiff");
+                $this->_logger->info("diff $diff");
                 // if days have passed proceed to send mail
                 if ($updatedAtDiff >= $diff) {
                     $mailSubject = $this->_getMailSubject($run, $abTesting, $storeId);
@@ -248,55 +261,36 @@ class cron
                             $vars = array('quote' => $quote, 'url' => $url, 'couponcode' => $couponcode, 'name' => $name, 'tags' => array($this->mandrillTag), 'unsubscribeurl' => $unsubscribeUrl);
                         }
                     } else {
-                        $vars = array('quote' => $quote, 'url' => $url, 'unsubscribeurl' => $unsubscribeUrl, 'tags' => array($this->mandrillTag));
+                        $vars = array('quote' => $quote, 'url' => $url, 'unsubscribeurl' => $unsubscribeUrl, 'tags' => array($this->mandrillTag),'subject'=>$mailSubject);
                     }
-
-                    //$customer = Mage::getModel('customer/customer')
-//                    $customer = $this->_objectManager('\Magento\Customer\Model\Customer')
-//                        ->setStore(Mage::app()->getStore($storeId))
-//                        ->loadByEmail($email);
-//                    if ($customer->getId() && Mage::helper('sweetmonkey')->enabled()) {
-//                        $tbtPoints = Mage::helper('ebizmarts_abandonedcart')->getTBTPoints($customer->getId());
-//                        foreach ($tbtPoints as $key => $field) {
-//                            if ($key == 'points') {
-//                                if ($field >= $this->_helper->getConfig('sweetmonkey/general/email_points', $storeId)) {
-//                                    $vars[$key] = $field;
-//                                }
-//                            } else {
-//                                $vars[$key] = $field;
-//                            }
-//                        }
-//                    }
-
+                    $this->_logger->info('preparo el message');
                     $transport = $this->_transportBuilder->setTemplateIdentifier($templateId)
-                        ->setTemplateOptions(['area' => FrontNameResolver::AREA_CODE, 'store' => $storeId])
-                        ->setSubject($mailSubject)
+                        ->setTemplateOptions(['area' => \Magento\Backend\App\Area\FrontNameResolver::AREA_CODE, 'store' => $storeId])
                         ->setTemplateVars($vars)
                         ->setFrom($sender)
                         ->addTo($email, $name)
                         ->getTransport();
+                    $this->_logger->info('mando el message');
 
                     $transport->sendMessage();
-//                    Mage::app()->getTranslator()->init('frontend', true);
-//                    $translate = Mage::getSingleton('core/translate');
-//                    $mail = Mage::getModel('core/email_template')->setTemplateSubject($mailsubject)->sendTransactional($templateId, $sender, $email, $name, $vars, $storeId);
-//                    $translate->setTranslateInLine(true);
+                    $this->_logger->info('cambio la quote');
                     $quote2->setEbizmartsAbandonedcartCounter($quote2->getEbizmartsAbandonedcartCounter() + 1);
                     $quote2->setEbizmartsAbandonedcartToken($token);
+                    $this->_logger->info('salvo la quote');
                     $quote2->save();
+                    $this->_logger->info('sigo');
 
                     if ($this->_helper->getConfig(\Ebizmarts\AbandonedCart\Model\Config::AB_TESTING_ACTIVE, $storeId)) {
-                        $counterCollection = Mage::getModel('ebizmarts_abandonedcart/abtesting')->getCollection()
-                            ->addFieldToFilter('store_id', array('eq' => $storeId));
-                        $counter = $counterCollection->getFirstItem();
-                        $counter->setCurrentStatus($counter->getCurrentStatus() + 1)
-                            ->save();
+                        $abTesting = ($abTesting + 1)%2;
                     }
                     $this->_objectManager->create('\Ebizmarts\Mandrill\Helper\Data')->saveMail('abandoned cart', $email, $name, $couponcode, $storeId);
                 }
             }
         }
-
+        if($this->_helper->getConfig(\Ebizmarts\AbandonedCart\Model\Config::AB_TESTING_ACTIVE, $storeId))
+        {
+            $this->_objectManager->get('\Magento\Config\Model\Resource\Config')->saveConfig(\Ebizmarts\AbandonedCart\Model\Config::ABCOUNTER, $abTesting);
+        }
     }
     protected function _proccessCollection($quote, $storeId)
     {
@@ -333,7 +327,7 @@ class cron
                 }
 
             } else {
-                $stock = $product->getStockItem();
+                $stock =  $this->_stockRegistry->getStockItem($product->getGetId(),$storeId);//$product->getStockItem();
                 $stockQty = $stock->getQty();
             }
 

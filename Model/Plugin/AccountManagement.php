@@ -41,6 +41,7 @@ class AccountManagement
             if($quoteId) {
                 $quote = $this->_objectManager->get('\Magento\Quote\Model\Quote')->load($quoteId);
                 $quote->setCustomerEmail($customerEmail);
+                $quote->setUpdatedAt(date('Y-m-d H:i:s'));
                 $quote->save();
             }
         }

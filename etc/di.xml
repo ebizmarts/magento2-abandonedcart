@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../lib/internal/Magento/Framework/ObjectManager/etc/config.xsd">
+    <type name="Magento\Customer\Model\AccountManagement">
+        <plugin name="abandoned-checkout-save-quote" type="Ebizmarts\AbandonedCart\Model\Plugin\AccountManagement" sortOrder="10"/>
+    </type>
+</config>

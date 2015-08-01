@@ -1,0 +1,13 @@
+<div style="background:#EAF0EE;border:1px solid #CCCCCC;margin-bottom:10px;padding:11px 0 0 10px;">
+<h4>
+    <img src="http://ebizmarts.com/extension-logo.php?<?php echo $this->getPxParams(); ?>"/><br><br>
+    <div style="padding-left: 30px;">
+        <p>You can find more extension in our <a href="http://store.ebizmarts.com" target="_blank">Store</a></p>
+    </div>
+    <?php if(!$this->mandrillEnabled()) :?>
+        <div class="box error-msg" style="padding-left: 30px;">
+            You must setup Mandrill extension to use this extension
+        </div>
+    <?php endif; ?>
+</h4>
+</div>

@@ -51,12 +51,14 @@ class Loadquote extends \Magento\Framework\App\Action\Action
     }
     public function execute()
     {
+        $this->_logger->info(__METHOD__);
         $quoteId = (int) $this->getRequest()->getParam('id', false);
+        $this->_logger->info("quoteid $quoteId");
         if($quoteId) {
             $quote = $this->_objectManager->create('\Magento\Quote\Model\Quote')->load($quoteId);
             $storeId = $quote->getStoreId();
             $url = $this->_helper->getConfig(\Ebizmarts\AbandonedCart\Model\Config::PAGE,$storeId);
-
+            $this->_logger->info("url $url");
             $token = (int) $this->getRequest()->getParam('token', false);
             if(!$token || $token != $quote->getEbizmartsAbandonedcartToken())
             {
@@ -88,6 +90,7 @@ class Loadquote extends \Magento\Framework\App\Action\Action
                         $this->_redirect('customer/account');
                     }
                 }
+                $this->_redirect($url);
             }
 
         }

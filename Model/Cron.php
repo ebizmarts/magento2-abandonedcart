@@ -216,7 +216,6 @@ class cron
             } else {
                 $url = $this->_storeManager->getStore($storeId)->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_LINK) . 'abandonedcart/abandoned/loadquote?id=' . $quote->getEntityId() . '&token=' . $token;
             }
-
             $data = array('AbandonedURL' => $url, 'AbandonedDate' => $quote->getUpdatedAt());
 
             // send email
@@ -230,7 +229,7 @@ class cron
                 $name = $quote->getCustomerFirstname() . ' ' . $quote->getCustomerLastname();
                 //$quote2 = Mage::getModel('sales/quote')->loadByIdWithoutStore($quote->getId());
                 $quote2 = $this->_objectManager->create('\Magento\Quote\Model\Quote')->loadByIdWithoutStore($quote->getId());
-                $unsubscribeUrl = $url = $this->_storeManager->getStore($storeId)->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_LINK) . 'ebizautoresponder/autoresponder/unsubscribe?list=abandonedcart&email=' . $email . '&store=' . $storeId;
+                $unsubscribeUrl = $this->_storeManager->getStore($storeId)->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_LINK) . 'ebizautoresponder/autoresponder/unsubscribe?list=abandonedcart&email=' . $email . '&store=' . $storeId;
                 $couponcode = '';
 
                 //if hour is set for first run calculates hours since cart was created else calculates days
@@ -263,6 +262,8 @@ class cron
                     } else {
                         $vars = array('quote' => $quote, 'url' => $url, 'unsubscribeurl' => $unsubscribeUrl, 'tags' => array($this->mandrillTag),'subject'=>$mailSubject);
                     }
+                    $this->_logger->info($url);
+                    $this->_logger->info($unsubscribeUrl);
                     $this->_logger->info('preparo el message');
                     $transport = $this->_transportBuilder->setTemplateIdentifier($templateId)
                         ->setTemplateOptions(['area' => \Magento\Backend\App\Area\FrontNameResolver::AREA_CODE, 'store' => $storeId])

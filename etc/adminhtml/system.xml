@@ -9,9 +9,12 @@
             <label>Abandoned Cart</label>
             <tab>magemonkey</tab>
             <resource>Ebizmarts_AbandonedCart::config_abandonedcart</resource>
-            <group id="general" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label>Abandoned Cart General Configuration</label>
+            <group id="hint" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
                 <frontend_model>Ebizmarts\AbandonedCart\Block\Adminhtml\System\Config\Fieldset\Hint</frontend_model>
+            </group>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Abandoned Cart General Configuration</label>
+                <!--frontend_model>Ebizmarts\AbandonedCart\Block\Adminhtml\System\Config\Fieldset\Hint</frontend_model-->
                 <field id="active" translate="label" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Enabled</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>

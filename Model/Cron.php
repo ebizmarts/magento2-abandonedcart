@@ -1,5 +1,6 @@
 <?php
 /**
+/**
  * Author: info@ebizmarts.com
  * Date: 7/15/15
  * Time: 2:28 PM
@@ -224,10 +225,9 @@ class cron
                 'email' => $this->_helper->getConfig("trans_email/ident_$senderid/email", $storeId));
 
             $email = $quote->getCustomerEmail();
-
-            if ($this->_helper->isSubscribed($email, 'abandonedcart', $storeId)) {
+            $mandrillHelper = $this->_objectManager->get('\Ebizmarts\Mandrill\Helper\Data');
+            if ($mandrillHelper->isSubscribed($email, 'abandonedcart', $storeId)) {
                 $name = $quote->getCustomerFirstname() . ' ' . $quote->getCustomerLastname();
-                //$quote2 = Mage::getModel('sales/quote')->loadByIdWithoutStore($quote->getId());
                 $quote2 = $this->_objectManager->create('\Magento\Quote\Model\Quote')->loadByIdWithoutStore($quote->getId());
                 $unsubscribeUrl = $this->_storeManager->getStore($storeId)->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_LINK) . 'ebizautoresponder/autoresponder/unsubscribe?list=abandonedcart&email=' . $email . '&store=' . $storeId;
                 $couponcode = '';
@@ -480,18 +480,6 @@ class cron
     {
         return '0000-00-00 00:00:00';
     }
-
-    protected function _isSubscribed($email, $list, $storeId)
-    {
-        $collection = $this->_objectManager->create('Magento\SalesRule\Model\Rule')
-//            Mage::getModel('ebizmarts_autoresponder/unsubscribe')
-            ->getCollection();
-        $collection->addFieldtoFilter('main_table.email', ['eq' => $email])
-            ->addFieldtoFilter('main_table.list', ['eq' => $list])
-            ->addFieldtoFilter('main_table.store_id', ['eq' => $storeId]);
-        return $collection->getSize() == 0;
-    }
-
     /**
      * @param $currentCount
      * @param $store

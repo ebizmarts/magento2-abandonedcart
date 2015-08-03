@@ -36,8 +36,4 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     {
         return $this->scopeConfig->getValue($label,\Magento\Store\Model\ScopeInterface::SCOPE_STORE, $store);
     }
-    public function isSubscribed($email, $list, $storeId)
-    {
-        return true;
-    }
 }

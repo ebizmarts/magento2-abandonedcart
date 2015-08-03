@@ -82,5 +82,15 @@ class Hint extends \Magento\Backend\Block\Template implements \Magento\Framework
         return "ext=$extension&mage={$mage}&ctrl={$hash}";
 
     }
+    public function getVersion()
+    {
+        $modules = $this->_loader->load();
+        $v = "";
+        if(isset($modules['Ebizmarts_AbandonedCart']))
+        {
+            $v =$modules['Ebizmarts_AbandonedCart']['setup_version'];
+        }
+        return $v;
+    }
 
 }

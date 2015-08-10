@@ -3,4 +3,7 @@
     <type name="Magento\Customer\Model\AccountManagement">
         <plugin name="abandoned-checkout-save-quote" type="Ebizmarts\AbandonedCart\Model\Plugin\AccountManagement" sortOrder="10"/>
     </type>
+    <type name="Magento\Config\Model\Config">
+        <plugin name="abandonedcart-save" type="Ebizmarts\AbandonedCart\Model\Plugin\Config" sortOrder="10"/>
+    </type>
 </config>

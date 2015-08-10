@@ -24,21 +24,29 @@ class Hint extends \Magento\Backend\Block\Template implements \Magento\Framework
     protected $_loader;
 
     /**
+     * @var \Ebizmarts\Mandrill\Helper\Data
+     */
+    protected $_mandrillHelper;
+
+    /**
      * @param \Magento\Backend\Block\Template\Context $context
      * @param \Magento\Framework\App\ProductMetadataInterface $productMetaData
      * @param \Magento\Framework\Module\ModuleList\Loader $loader
+     * @param \Ebizmarts\Mandrill\Helper\Data $mandrillHelper
      * @param array $data
      */
     public function __construct(
         \Magento\Backend\Block\Template\Context $context,
         \Magento\Framework\App\ProductMetadataInterface $productMetaData,
         \Magento\Framework\Module\ModuleList\Loader $loader,
+        \Ebizmarts\Mandrill\Helper\Data $mandrillHelper,
         array $data = []
     )
     {
         parent::__construct($context, $data);
         $this->_metaData = $productMetaData;
         $this->_loader = $loader;
+        $this->_mandrillHelper = $mandrillHelper;
     }
 
     /**
@@ -55,7 +63,7 @@ class Hint extends \Magento\Backend\Block\Template implements \Magento\Framework
      */
     public function mandrillEnabled()
     {
-        return false;
+        return $this->_mandrillHelper->isActive();
     }
     public function getPxParams()
     {

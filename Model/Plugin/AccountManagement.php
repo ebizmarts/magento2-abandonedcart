@@ -31,7 +31,7 @@ class AccountManagement
         $this->_objectManager = $objectManager;
         $this->_logger = $logger;
     }
-    public function aroundIsEmailAvailable(\Magento\Customer\Model\AccountManagement $accountManagement,\Closure $proceed,$customerEmail,$websiteId)
+    public function aroundIsEmailAvailable(\Magento\Customer\Model\AccountManagement $accountManagement,\Closure $proceed,$customerEmail,$websiteId=null)
     {
         $ret = $proceed($customerEmail,$websiteId);
         $session = $this->_getSession();

@@ -225,7 +225,7 @@ class cron
             if ($mandrillHelper->isSubscribed($email, 'abandonedcart', $storeId)) {
                 $name = $quote->getCustomerFirstname() . ' ' . $quote->getCustomerLastname();
                 $quote2 = $this->_objectManager->create('\Magento\Quote\Model\Quote')->loadByIdWithoutStore($quote->getId());
-                $unsubscribeUrl = $this->_storeManager->getStore($storeId)->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_LINK) . 'ebizautoresponder/autoresponder/unsubscribe?list=abandonedcart&email=' . $email . '&store=' . $storeId;
+                $unsubscribeUrl = $this->_storeManager->getStore($storeId)->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_LINK) . 'mandrill/autoresponder/unsubscribe?list=abandonedcart&email=' . $email . '&store=' . $storeId;
                 $couponcode = '';
 
                 //if hour is set for first run calculates hours since cart was created else calculates days

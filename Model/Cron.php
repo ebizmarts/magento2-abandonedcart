@@ -78,8 +78,6 @@ class cron
 
     public function abandoned()
     {
-        error_log("entro en el cron");
-        $this->_logger->info("entro en el cron");
         foreach($this->_storeManager->getStores() as $storeId => $val)
         {
             $this->_storeManager->setCurrentStore($storeId);
@@ -173,7 +171,6 @@ class cron
         if (count($this->customergroups)) {
             $collection->addFieldToFilter('main_table.customer_group_id', array('in' => $this->customergroups));
         }
-        $this->_logger->info((string)$collection->getSelect());
         $abTesting = 0;
         $suffix = '';
         if($this->_helper->getConfig(\Ebizmarts\AbandonedCart\Model\Config::AB_TESTING_ACTIVE, $storeId))
@@ -208,7 +205,6 @@ class cron
                 ->addFieldToFilter('main_table.customer_email', array('eq' => $quote->getCustomerEmail()))
                 ->addFieldToFilter('main_table.updated_at', array('from' => $quote->getUpdatedAt()));
             if ($collection2->getSize()) {
-                $this->_logger->info("hay ordenes mas nuevas");
                 continue;
             }
             $token = md5(rand(0, 9999999));
@@ -239,10 +235,6 @@ class cron
                 if ($this->unit == \Ebizmarts\AbandonedCart\Model\Config::IN_HOURS && $run == 0) {
                     $updatedAtDiff = ($today - $updatedAt) / 60 / 60;
                 }
-                $this->_logger->info("updatedAt $updatedAt");
-                $this->_logger->info("today $today");
-                $this->_logger->info("updatedAtDiff $updatedAtDiff");
-                $this->_logger->info("diff $diff");
                 // if days have passed proceed to send mail
                 if ($updatedAtDiff >= $diff) {
                     $mailSubject = $this->_getMailSubject($run, $abTesting, $storeId);
@@ -262,24 +254,17 @@ class cron
                     } else {
                         $vars = array('quote' => $quote, 'url' => $url, 'unsubscribeurl' => $unsubscribeUrl, 'tags' => array($this->mandrillTag),'subject'=>$mailSubject);
                     }
-                    $this->_logger->info($url);
-                    $this->_logger->info($unsubscribeUrl);
-                    $this->_logger->info('preparo el message');
                     $transport = $this->_transportBuilder->setTemplateIdentifier($templateId)
                         ->setTemplateOptions(['area' => \Magento\Backend\App\Area\FrontNameResolver::AREA_CODE, 'store' => $storeId])
                         ->setTemplateVars($vars)
                         ->setFrom($sender)
                         ->addTo($email, $name)
                         ->getTransport();
-                    $this->_logger->info('mando el message');
 
                     $transport->sendMessage();
-                    $this->_logger->info('cambio la quote');
                     $quote2->setEbizmartsAbandonedcartCounter($quote2->getEbizmartsAbandonedcartCounter() + 1);
                     $quote2->setEbizmartsAbandonedcartToken($token);
-                    $this->_logger->info('salvo la quote');
                     $quote2->save();
-                    $this->_logger->info('sigo');
 
                     if ($this->_helper->getConfig(\Ebizmarts\AbandonedCart\Model\Config::AB_TESTING_ACTIVE, $storeId)) {
                         $abTesting = ($abTesting + 1)%2;

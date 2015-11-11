@@ -1,11 +1,14 @@
 <?php
 /**
- * Author: info@ebizmarts.com
- * Date: 7/14/15
- * Time: 2:29 PM
- * File: Date.php
- * Module: magento2-abandonedcart
+ * Ebizmarts_Abandonedcart Magento JS component
+ *
+ * @category    Ebizmarts
+ * @package     Ebizmarts_Abandonedcart
+ * @author      Ebizmarts Team <info@ebizmarts.com>
+ * @copyright   Ebizmarts (http://ebizmarts.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
 namespace Ebizmarts\AbandonedCart\Block\Adminhtml\System\Config;
 
 //use Magento\Framework\Data\Form\Element\Date;

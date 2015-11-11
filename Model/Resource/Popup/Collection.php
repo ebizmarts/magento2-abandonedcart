@@ -1,11 +1,14 @@
 <?php
 /**
- * Author: info@ebizmarts.com
- * Date: 7/22/15
- * Time: 5:48 PM
- * File: Collection.php
- * Module: magento2-abandonedcart
+ * Ebizmarts_Abandonedcart Magento JS component
+ *
+ * @category    Ebizmarts
+ * @package     Ebizmarts_Abandonedcart
+ * @author      Ebizmarts Team <info@ebizmarts.com>
+ * @copyright   Ebizmarts (http://ebizmarts.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
 namespace Ebizmarts\AbandonedCart\Model\Resource\Popup;
 
 class Collection extends \Magento\Framework\Model\Resource\Db\Collection\AbstractCollection

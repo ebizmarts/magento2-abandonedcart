@@ -9,13 +9,8 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
-namespace Ebizmarts\AbandonedCart\Model\System\Config;
-
-class Abcounter
-{
-    public function toOptionArray()
-    {
-        return [0 => 'A tempate',1 => 'B template'];
-    }
-}
+\Magento\Framework\Component\ComponentRegistrar::register(
+    \Magento\Framework\Component\ComponentRegistrar::MODULE,
+    'Ebizmarts_Abandonedcart',
+    __DIR__
+);

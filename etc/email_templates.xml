@@ -1,5 +1,16 @@
 <?xml version="1.0"?>
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../Magento/Email/etc/email_templates.xsd">
+<!--
+/**
+ * Ebizmarts_Abandonedcart Magento JS component
+ *
+ * @category    Ebizmarts
+ * @package     Ebizmarts_Abandonedcart
+ * @author      Ebizmarts Team <info@ebizmarts.com>
+ * @copyright   Ebizmarts (http://ebizmarts.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
     <template id="abandonedcart_general_template1" label="First Abandoned Cart" file="abandoned_cart_mail_1.html" type="html" module="Ebizmarts_AbandonedCart" area="adminhtml"/>
     <template id="abandonedcart_general_template2" label="Second Abandoned Cart" file="abandoned_cart_mail_2.html" type="html" module="Ebizmarts_AbandonedCart" area="adminhtml"/>
     <template id="abandonedcart_general_template3" label="Third Abandoned Cart" file="abandoned_cart_mail_3.html" type="html" module="Ebizmarts_AbandonedCart" area="adminhtml"/>

@@ -158,7 +158,7 @@ class cron
         $from = new \Zend_Db_Expr($expr);
 
         // get collection of abandoned carts with cart_counter == $run
-        $collection = $this->_objectManager->create('\Magento\Reports\Model\Resource\Quote\Collection');
+        $collection = $this->_objectManager->create('\Magento\Reports\Model\ResourceModel\Quote\Collection');
         $collection->addFieldToFilter('items_count', array('neq' => '0'))
             ->addFieldToFilter('main_table.is_active', '1')
             ->addFieldToFilter('main_table.store_id', array('eq' => $storeId))
@@ -201,7 +201,7 @@ class cron
             }
             // check if they are any order from the customer with date >=
             //$collection2 = Mage::getResourceModel('reports/quote_collection');
-            $collection2 = $this->_objectManager->create('\Magento\Reports\Model\Resource\Quote\Collection');
+            $collection2 = $this->_objectManager->create('\Magento\Reports\Model\ResourceModel\Quote\Collection');
             $collection2->addFieldToFilter('main_table.is_active', '0')
                 ->addFieldToFilter('main_table.reserved_order_id', array('neq' => 'NULL'))
                 ->addFieldToFilter('main_table.customer_email', array('eq' => $quote->getCustomerEmail()))
@@ -277,7 +277,7 @@ class cron
         }
         if($this->_helper->getConfig(\Ebizmarts\AbandonedCart\Model\Config::AB_TESTING_ACTIVE, $storeId))
         {
-            $this->_objectManager->get('\Magento\Config\Model\Resource\Config')->saveConfig(\Ebizmarts\AbandonedCart\Model\Config::ABCOUNTER, $abTesting);
+            $this->_objectManager->get('\Magento\Config\Model\ResourceModel\Config')->saveConfig(\Ebizmarts\AbandonedCart\Model\Config::ABCOUNTER, $abTesting);
         }
     }
     protected function _proccessCollection($quote, $storeId)

@@ -22,7 +22,7 @@ class Popup extends \Magento\Framework\Model\AbstractModel
     protected function _construct()
     {
         parent::_construct();
-        $this->_init('Ebizmarts\AbandonedCart\Model\Resource\Popup');
+        $this->_init('Ebizmarts\AbandonedCart\Model\ResourceModel\Popup');
     }
 
 }

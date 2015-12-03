@@ -9,7 +9,7 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-namespace Ebizmarts\AbandonedCart\Model\Resource\Popup;
+namespace Ebizmarts\AbandonedCart\Model\ResourceModel\Popup;
 
 class Collection extends \Magento\Framework\Model\Resource\Db\Collection\AbstractCollection
 {
@@ -20,7 +20,7 @@ class Collection extends \Magento\Framework\Model\Resource\Db\Collection\Abstrac
      */
     protected function _construct()
     {
-        $this->_init('Ebizmarts\AbandonedCart\Model\Popup', 'Ebizmarts\AbandonedCart\Model\Resource\Popup');
+        $this->_init('Ebizmarts\AbandonedCart\Model\Popup', 'Ebizmarts\AbandonedCart\Model\ResourceModel\Popup');
     }
 
 }

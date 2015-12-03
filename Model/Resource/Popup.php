@@ -11,7 +11,7 @@
 
 namespace Ebizmarts\AbandonedCart\Model\Resource;
 
-class Popup extends \Magento\Framework\Model\Resource\Db\AbstractDb
+class Popup extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
 {
     /**
      * Model Initialization

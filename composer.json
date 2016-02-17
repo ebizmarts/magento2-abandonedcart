@@ -1,8 +1,12 @@
 {
     "name": "ebizmarts/magento2-abandonedcart",
+    "autoload": {
+        "psr-4": {"Ebizmarts\\AbandonedCart\\":""},
+        "files": ["registration.php"]
+    },
     "description": "Send abandoned cart emails",
     "type": "magento2-module",
-    "version": "3.0.0",
+    "version": "3.0.1",
     "authors": [
         {
             "name": "Ebizmarts Corp",
@@ -22,13 +26,5 @@
     "require" : {
         "mandrill/mandrill": "1.0.*",
         "ebizmarts/magento2-mandrill": "3.0.*"
-    },
-    "extra": {
-        "map": [
-            [
-                "*",
-                "Ebizmarts/AbandonedCart"
-            ]
-        ]
     }
 }

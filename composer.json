@@ -26,6 +26,5 @@
     "require" : {
         "mandrill/mandrill": "1.0.*",
         "ebizmarts/magento2-mandrill": "3.0.*"
-    },
     }
 }

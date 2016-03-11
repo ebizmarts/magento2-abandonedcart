@@ -269,7 +269,7 @@ class cron
                     $quote2->save();
 
                     if ($this->_helper->getConfig(\Ebizmarts\AbandonedCart\Model\Config::AB_TESTING_ACTIVE, $storeId)) {
-                        $abTesting = ($abTesting + 1)%2;
+                        ($abTesting++)%2;
                     }
                     $this->_objectManager->create('\Ebizmarts\Mandrill\Helper\Data')->saveMail('abandoned cart', $email, $name, $couponcode, $storeId);
                 }

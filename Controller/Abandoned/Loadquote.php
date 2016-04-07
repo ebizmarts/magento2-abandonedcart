@@ -34,20 +34,18 @@ class Loadquote extends \Magento\Framework\App\Action\Action
     /**
      * @param \Magento\Framework\App\Action\Context $context
      * @param \Magento\Framework\View\Result\PageFactory $resultPageFactory
-     * @param \Magento\Framework\ObjectManagerInterface $objectManager
      * @param \Ebizmarts\AbandonedCart\Helper\Data $helper
      * @param \Psr\Log\LoggerInterface $logger
      */
     public function __construct(
         \Magento\Framework\App\Action\Context $context,
         \Magento\Framework\View\Result\PageFactory $resultPageFactory,
-        \Magento\Framework\ObjectManagerInterface $objectManager,
         \Ebizmarts\AbandonedCart\Helper\Data $helper,
         \Psr\Log\LoggerInterface $logger
     )
     {
         parent::__construct($context);
-        $this->_objectManager = $objectManager;
+        $this->_objectManager = $context->getObjectManager();
         $this->_helper = $helper;
         $this->_resultPageFactory = $resultPageFactory;
         $this->_logger = $logger;

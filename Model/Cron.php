@@ -12,7 +12,7 @@
 
 namespace Ebizmarts\AbandonedCart\Model;
 
-class cron
+class Cron
 {
     protected $days;
     protected $maxtimes;

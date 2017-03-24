@@ -435,7 +435,7 @@ class Cron
                 ->setIsRss(0)
                 ->setWebsiteIds($websiteid);
             // $uniqueId = Mage::getSingleton('salesrule/coupon_codegenerator', array('length' => $this->couponlength))->generateCode();
-            $uniqueId = $this->_objectManager->create('Magento\SalesRule\Model\Group\Codegenerator')->setLengthMin($this->couponlength)->setLengthMax($this->couponlength)->generateCode();
+            $uniqueId = $this->_objectManager->create('Magento\SalesRule\Model\Coupon\Codegenerator')->setLengthMin($this->couponlength)->setLengthMax($this->couponlength)->generateCode();
             $coupon_rule->setCouponCode($uniqueId);
             $coupon_rule->save();
             return array($uniqueId, $discount, $toDate);

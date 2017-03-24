@@ -277,7 +277,7 @@ class Cron
         }
         if($this->_helper->getConfig(\Ebizmarts\AbandonedCart\Model\Config::AB_TESTING_ACTIVE, $storeId))
         {
-            $this->_objectManager->get('\Magento\Config\Model\Resource\Config')->saveConfig(\Ebizmarts\AbandonedCart\Model\Config::ABCOUNTER, $abTesting);
+            $this->_objectManager->get('\Magento\Config\Model\ResourceModel\Config')->saveConfig(\Ebizmarts\AbandonedCart\Model\Config::ABCOUNTER, $abTesting);
         }
     }
     protected function _proccessCollection($quote, $storeId)

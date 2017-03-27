@@ -27,27 +27,35 @@ class Config
      */
     protected $_writer;
 
+    /**
+     * @var \Magento\Framework\App\Config\ScopeConfigInterface
+     */
+    protected $_scopeConfig;
+
 
     /**
      * @param \Magento\Framework\ObjectManagerInterface $objectManager
      * @param \Magento\Framework\Module\ModuleList\Loader $loader
      * @param \Magento\Framework\App\Config\Storage\WriterInterface $configWriter
+     * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
      */
     public function __construct(
         \Magento\Framework\ObjectManagerInterface $objectManager,
         \Magento\Framework\Module\ModuleList\Loader $loader,
-        \Magento\Framework\App\Config\Storage\WriterInterface $configWriter
+        \Magento\Framework\App\Config\Storage\WriterInterface $configWriter,
+        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
     )
     {
         $this->_objectManager = $objectManager;
         $this->_loader = $loader;
         $this->_writer = $configWriter;
+        $this->_scopeConfig = $scopeConfig;
     }
     public function aroundSave(\Magento\Config\Model\config $config,\Closure $proceed)
     {
         $ret = $proceed();
         $sectionId = $config->getSection();
-        if($sectionId=='abandonedcart'&&!$this->_objectManager->create('\Ebizmarts\Mandrill\Helper\Data')->isActive($config->getStore()))
+        if($sectionId=='abandonedcart' && !$this->scopeConfig->getValue('\Ebizmarts\Mandrill\Helper\Data', \Magento\Store\Model\ScopeInterface::SCOPE_STORE))
         {
             $this->_writer->save(\Ebizmarts\AbandonedCart\Model\Config::ACTIVE,0,$config->getScope(),$config->getScopeId());
         }

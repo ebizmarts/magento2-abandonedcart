@@ -55,7 +55,7 @@ class Config
     {
         $ret = $proceed();
         $sectionId = $config->getSection();
-        if($sectionId=='abandonedcart' && !$this->scopeConfig->getValue('\Ebizmarts\Mandrill\Helper\Data', \Magento\Store\Model\ScopeInterface::SCOPE_STORE))
+        if($sectionId=='abandonedcart' && !$this->_scopeConfig->getValue('mandrill/general/active', \Magento\Store\Model\ScopeInterface::SCOPE_STORE))
         {
             $this->_writer->save(\Ebizmarts\AbandonedCart\Model\Config::ACTIVE,0,$config->getScope(),$config->getScopeId());
         }

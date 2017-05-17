@@ -289,7 +289,7 @@ class Cron
                 //Mage::log('AbandonedCart; ' . $product->getSku() . ' is no longer present or enabled; remove from quote ' . $quote->getId() . ' for email', null, 'Ebizmarts_AbandonedCart.log');
                 $removeFromQuote = true;
             }
-
+            $stock = null;
             if ($product->getTypeId() == 'configurable') {
                 $simpleProductId = $this->_objectManager->create('Magento\Catalog\Model\Product')->getIdBySku($item->getSku());
                 $simpleProduct = $this->_objectManager->create('Magento\Catalog\Model\Product')-load($simpleProductId);

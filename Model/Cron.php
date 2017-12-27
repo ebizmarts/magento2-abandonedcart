@@ -254,7 +254,7 @@ class Cron
                             $vars = array('quote' => $quote, 'url' => $url, 'couponcode' => $couponcode, 'name' => $name, 'tags' => array($this->mandrillTag), 'unsubscribeurl' => $unsubscribeUrl);
                         }
                     } else {
-                        $vars = array('quote' => $quote, 'url' => $url, 'unsubscribeurl' => $unsubscribeUrl, 'tags' => array($this->mandrillTag),'subject'=>$mailSubject);
+                        $vars = array('quote' => $quote, 'url' => $url, 'unsubscribeurl' => $unsubscribeUrl, 'name' => $name, 'tags' => array($this->mandrillTag),'subject'=>$mailSubject);
                     }
                     $transport = $this->_transportBuilder->setTemplateIdentifier($templateId)
                         ->setTemplateOptions(['area' => \Magento\Backend\App\Area\FrontNameResolver::AREA_CODE, 'store' => $storeId])

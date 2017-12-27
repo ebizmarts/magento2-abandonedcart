@@ -292,7 +292,7 @@ class Cron
             $stock = null;
             if ($product->getTypeId() == 'configurable') {
                 $simpleProductId = $this->_objectManager->create('Magento\Catalog\Model\Product')->getIdBySku($item->getSku());
-                $simpleProduct = $this->_objectManager->create('Magento\Catalog\Model\Product')-load($simpleProductId);
+                $simpleProduct = $this->_objectManager->create('Magento\Catalog\Model\Product')->load($simpleProductId);
                 $stock = $simpleProduct->getStockItem();
                 $stockQty = $stock->getQty();
             } elseif ($product->getTypeId() == 'bundle') {
